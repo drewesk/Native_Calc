@@ -1,9 +1,12 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   StyleSheet,
   Text,
   View } from 'react-native';
+
+import { pressNum } from './modules';
 import Button from './Button'
 
 const styles = StyleSheet.create({
@@ -17,28 +20,28 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   number: {
-    color: '#9CE9C1',
-    backgroundColor: '#424242',
+    color: '#FFF',
+    backgroundColor: '#C4D2CD',
     textAlign: 'right',
     padding: 10,
     fontSize: 30,
     fontWeight: 'bold',
     borderWidth: 2,
-    borderColor: '#000',
+    borderColor: '#4A4F4D',
   },
   row: {
     flex: 1,
     flexDirection: 'row',
     borderBottomWidth: 3,
-    borderColor: "#C4EFE0",
+    borderColor: "#3F554D",
   },
 });
 
-const App = () => <View style={ styles.container }>
+const App = ({ currentNumber, pressNumWithDispatch }) => <View style={ styles.container }>
   <View style={ styles.top }>
     <Text style={ styles.number } >0</Text>
     <Text style={ styles.number } >0</Text>
-    <Text style={ styles.number } >0</Text>
+    <Text style={ styles.number } >{ currentNumber }</Text>
   </View>
   <View style={ styles.bottom }>
     <View style={ styles.row }>
@@ -48,29 +51,35 @@ const App = () => <View style={ styles.container }>
       <Button text="/"/>
     </View>
     <View style={ styles.row }>
-      <Button text="9" />
-      <Button text="8" />
-      <Button text="7" />
-      <Button text="*" />
+      <Button text="9" onPress={ pressNumWithDispatch } />
+      <Button text="8" onPress={ pressNumWithDispatch } />
+      <Button text="7" onPress={ pressNumWithDispatch } />
+      <Button text="*" onPress={ pressNumWithDispatch } />
     </View>
     <View style={ styles.row }>
-      <Button text="6" />
-      <Button text="5" />
-      <Button text="4" />
-      <Button text="-" />
+      <Button text="6" onPress={ pressNumWithDispatch } />
+      <Button text="5" onPress={ pressNumWithDispatch } />
+      <Button text="4" onPress={ pressNumWithDispatch } />
+      <Button text="-" onPress={ pressNumWithDispatch } />
     </View>
     <View style={ styles.row }>
-      <Button text="3" />
-      <Button text="2" />
-      <Button text="1" />
-      <Button text="+" />
+      <Button text="3" onPress={ pressNumWithDispatch } />
+      <Button text="2" onPress={ pressNumWithDispatch } />
+      <Button text="1" onPress={ pressNumWithDispatch } />
+      <Button text="+" onPress={ pressNumWithDispatch } />
     </View>
     <View style={ styles.row }>
-      <Button text="0" />
-      <Button text="." />
-      <Button text="enter" special />
+      <Button text="0" onPress={ pressNumWithDispatch } />
+      <Button text="." onPress={ pressNumWithDispatch } />
+      <Button text="enter" special  onPress={ pressNumWithDispatch } />
     </View>
   </View>
 </View>
 
-export default connect()(App);
+export default connect(
+  state => ({ currentNumber: state }),
+  dispatch =>
+  bindActionCreators({
+    pressNumWithDispatch: pressNum,
+  }, dispatch)
+)(App);

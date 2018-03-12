@@ -9,28 +9,38 @@ const baseContainer = {
   alignItems: "center",
   justifyContent: "center",
   borderRightWidth: 5,
-  borderColor: "#C4EFE0"
+  borderColor: "#3F554D"
+};
+
+const baseText = {
+  fontSize: 36,
 };
 
 const styles = ({
   container: {
-    backgroundColor: "#A4E8D0",
+    backgroundColor: "#485F57",
     flex: 1,
     ...baseContainer,
   },
   specialContainer: {
-    backgroundColor: "#3AEBAB",
+    backgroundColor: "#485F52",
     flex: 2,
     ...baseContainer,
   },
-  text: {
-    fontSize: 36,
+  text: baseText,
+  specialText: {
+    ...baseText,
+    color: '#FFF',
   },
 });
 
 const Button = ({ text , special, onPress }) => (
-  <TouchableOpacity onPress={ onPress } style={ special ? styles.specialContainer : styles.container }>
-    <Text style={ styles.text }>{ text }</Text>
+  <TouchableOpacity
+    onPress={ () => onPress(text) }
+    style={ special ? styles.specialContainer : styles.container }>
+    <Text style={ special ? styles.specialText : styles.text }>
+      { text }
+    </Text>
   </TouchableOpacity>
 );
 
