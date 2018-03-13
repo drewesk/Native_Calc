@@ -6,7 +6,7 @@ import {
   Text,
   View } from 'react-native';
 
-import { pressNum } from './modules';
+import { pressNum, enter } from './modules';
 import Button from './Button'
 
 const styles = StyleSheet.create({
@@ -37,11 +37,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const App = ({ currentNumber, pressNumWithDispatch }) => <View style={ styles.container }>
+const App = ({ calculatorState: {stack, inputState}, pressNumWithDispatch, enterAction }) =>
+<View style={ styles.container }>
   <View style={ styles.top }>
-    <Text style={ styles.number } >0</Text>
-    <Text style={ styles.number } >0</Text>
-    <Text style={ styles.number } >{ currentNumber }</Text>
+    <Text style={ styles.number } >{ stack[2] || 0 }</Text>
+    <Text style={ styles.number } >{ stack[1] || 0 }</Text>
+    <Text style={ styles.number } >{ stack[0] || 0 }</Text>
   </View>
   <View style={ styles.bottom }>
     <View style={ styles.row }>
@@ -66,20 +67,21 @@ const App = ({ currentNumber, pressNumWithDispatch }) => <View style={ styles.co
       <Button text="3" onPress={ pressNumWithDispatch } />
       <Button text="2" onPress={ pressNumWithDispatch } />
       <Button text="1" onPress={ pressNumWithDispatch } />
-      <Button text="+" onPress={ pressNumWithDispatch } />
+      <Button text="+" />
     </View>
     <View style={ styles.row }>
       <Button text="0" onPress={ pressNumWithDispatch } />
-      <Button text="." onPress={ pressNumWithDispatch } />
-      <Button text="enter" special  onPress={ pressNumWithDispatch } />
+      <Button text="." />
+      <Button text="enter" onPress={ enterAction } special />
     </View>
   </View>
 </View>
 
 export default connect(
-  state => ({ currentNumber: state }),
+  state => ({ calculatorState: state }),
   dispatch =>
   bindActionCreators({
     pressNumWithDispatch: pressNum,
+    enterAction: enter,
   }, dispatch)
 )(App);
