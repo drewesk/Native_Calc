@@ -53,7 +53,7 @@ const App = ({
   operationAction,
   pressNumWithDispatch,
   enterAction
-}) =>
+}) => (
 <View style={styles.container}>
   <View style={styles.top}>
     <Text style={styles.append}>{stack[2] || 0}</Text>
@@ -71,7 +71,7 @@ const App = ({
       <Button text="9" onPress={pressNumWithDispatch} />
       <Button text="8" onPress={pressNumWithDispatch} />
       <Button text="7" onPress={pressNumWithDispatch} />
-      <Button text="X" onPress={operationAction} />
+      <Button text="*" onPress={operationAction} />
     </View>
     <View style={styles.row}>
       <Button text="6" onPress={pressNumWithDispatch} />
@@ -92,6 +92,7 @@ const App = ({
     </View>
   </View>
 </View>
+);
 
 export default connect(
   state => ({ calculatorState: state }),

@@ -26,7 +26,7 @@ const doOperation = (x, y, op) => {
     return b + a;
   } else if (op === '-') {
     return b - a;
-  } else if (op === 'X') {
+  } else if (op === '*') {
     return b * a;
   } else if (op === '/') {
     return b / a;
@@ -67,6 +67,6 @@ export const reducer = (state = { stack: [], inputState: 'replace' }, { type, pa
       }
       break;
     default:
-    return state;
+      return state;
   }
 };
